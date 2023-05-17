@@ -6,10 +6,11 @@ import FlightSearch from "../components/FlightSearch/FlightSearch";
 import SeatSelection from "../components/SeatSelection/SeatSelection";
 import FlightData from "../components/FlightData/FlightData";
 import TicketPayment from "../components/TicketPayment/TicketPayment";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const AppRouter = () => {
   return (
-    <div>
+    <ChakraProvider>
       <BrowserRouter>
         <Routes>
           <Route path={"/"} element={<Home />}>
@@ -21,7 +22,7 @@ const AppRouter = () => {
           </Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </ChakraProvider>
   );
 };
 
