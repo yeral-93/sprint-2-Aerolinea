@@ -13,13 +13,15 @@ const AppRouter = () => {
     <ChakraProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={"/"} element={<Home />}>
+         
             {/* <Route index element={<Home />} /> */}
+            <Route path={"/"} element={<Home />} />
             <Route path={"vuelo"} element={<FlightSearch />} />
             <Route path={"asiento"} element={<SeatSelection />} />
             <Route path={"pago"} element={<TicketPayment />} />
             <Route path={"informacion"} element={<FlightData />} />
-          </Route>
+          
+          <Route path={"*"} element={<Home />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
