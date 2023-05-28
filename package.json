@@ -13,6 +13,8 @@
     "components": "^0.1.0",
     "datepicker": "^0.0.0",
     "framer-motion": "^10.12.12",
+    "html-to-image": "^1.11.11",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
