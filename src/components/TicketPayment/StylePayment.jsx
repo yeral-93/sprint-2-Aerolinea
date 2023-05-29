@@ -85,6 +85,23 @@ export const PersonData = styled.div`
       color: #9b2577;
       background-color: #f2efef;
     }
+    fieldset{
+      display: flex;
+      gap: 8px;
+
+      legend{
+        font-size: 15px;
+      }
+      input{
+        &:hover{
+          background-color: #9b2577;
+        }
+      }
+
+      label{
+        font-size: 17px;
+      }
+    }
 
     button {
       padding: 10px;

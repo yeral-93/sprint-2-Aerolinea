@@ -13,7 +13,7 @@ const Seats = () => {
         const arrayRows = [];
        for (let position = 0; position < columns; position++){
         const codeSeat =`${String.fromCharCode(65 + index)}${position+1}`;
-        arrayRows.push(<LivingIcon key={codeSeat}/>)
+        arrayRows.push(<LivingIcon sx={{ fontSize: 50 }}key={codeSeat}/>)
        } 
 
        seat.push(<div key={index}>{arrayRows}</div>);
