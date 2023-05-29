@@ -49,9 +49,10 @@ export const Footer = () => {
       <SectionCards>
         {informationCards.map((item, index) => (
           <Card
+          borderRadius="16px"
             key={`${item.title}-${index}`}
             width='18%'
-            height='280px'
+            height='270px'
             alignItems="center"
             boxshadow="0 0.13rem 0.5rem 0 rgba(0,0,0,.06), 0 0.06rem 0.13rem 0 rgba(0,0,0,.08)"
           >
