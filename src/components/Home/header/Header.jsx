@@ -46,7 +46,7 @@ const navegar = useNavigate ()
    navegar ('vuelo') 
   };
   return (
-    <Container maxW='100%'>
+    <Container maxW='100%' padding="80px 170px 0px 170px">
       <Flex position="relative">
 
         <Square
@@ -112,9 +112,11 @@ const navegar = useNavigate ()
                 
               </Box>
             </Square>
+
             <Button onClick={ onClikBuscarVuelo} bg='#9b2577' variant='outline' h='50px' width='100%' mt='15px'  borderRadius={20} color='white' >
             <Image src={avion} boxSize="30px" mr={2}  />
-                Buscar vuelo
+                Buscar vuelo 
+
               </Button>
           </Box>
         </Square>

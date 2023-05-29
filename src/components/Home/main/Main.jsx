@@ -16,6 +16,7 @@ const Main = () => {
         Pago Seguro
       </Heading>
       <Card
+      borderRadius="20px"
         display="flex"
         flexDirection="revert"
         justifyContent="space-between"
