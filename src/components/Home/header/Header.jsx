@@ -33,7 +33,7 @@ const Header = () => {
     setIsOpenC(true);
   };
   return (
-    <Container maxW='100%'>
+    <Container maxW='100%' padding="80px 170px 0px 170px">
       <Flex position="relative">
 
         <Square
@@ -100,8 +100,7 @@ const Header = () => {
               </Box>
             </Square>
             <Button bg='#9b2577' variant='outline' h='50px' width='100%' mt='15px'  borderRadius={20} color='white' >
-            <Image src={avion} boxSize="30px" mr={2}  />
-                Buscar vuelo
+            <Image src={avion} boxSize="30px" mr={2}  />Buscar vuelo 
               </Button>
           </Box>
         </Square>

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const SectionDiv = styled.div`
-padding: 20px 150px 20px 150px;
+padding: 50px 140px 50px 140px;
 `
 
 export const SectionCards = styled.section`
