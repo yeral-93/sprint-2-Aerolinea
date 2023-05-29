@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,  } from 'react'
 import {
   Container, Box, Flex, Image, Square, Text, Button, Stack, 
 } from '@chakra-ui/react'
@@ -9,6 +9,8 @@ import down from '../../../assets/chevron-down.svg'
 import menos from '../../../assets/minus.svg'
 import ModalDestino from '../../modals/ModalDestino'
 import ModalCalendario from '../../modals/ModalCalendario'
+import ModalPasajero from '../../modals/ModalPasajero'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -16,7 +18,8 @@ import ModalCalendario from '../../modals/ModalCalendario'
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenC, setIsOpenC] = useState(false);
-
+  const [isOpenP, setIsOpenP] = useState(false);
+const navegar = useNavigate ()
 
   const onClose = () => {
     setIsOpen(false);
@@ -31,6 +34,16 @@ const Header = () => {
 
   const onOpenC = () => {
     setIsOpenC(true);
+  };
+  const onCloseP = () => {
+    setIsOpenP(false);
+  };
+
+  const onOpenP = () => {
+    setIsOpenP(true);
+  };
+  const onClikBuscarVuelo = () => {
+   navegar ('vuelo') 
   };
   return (
     <Container maxW='100%'>
@@ -59,12 +72,12 @@ const Header = () => {
               </Button>
             </Stack>
             <Square gap='5px' mt='10px'>
-              <Box  onClick={onOpen}bg='white' h='90px' width='50%'>
+              <Box  onClick={onOpen}bg='white' h='90px' width='50%' cursor={'pointer'}>
                 <Flex align="center" height="100%">
                   <Text  textAlign="center">Origen</Text>
                 </Flex>
               </Box>
-              <Box bg='white' h='90px' width='50%'>
+              <Box  onClick={onOpen} bg='white' h='90px' width='50%' cursor={'pointer'}>
               <Flex align="center"  justifyContent='center'>
               <Image src={menos} />  <Image src={menos} />  <Image src={menos} />
               </Flex>
@@ -73,7 +86,7 @@ const Header = () => {
               </Box>
             </Square>
             <Square gap='5px' mt='10px'>
-              <Box onClick={onOpenC} bg='white' h='50px' width='50%'>
+              <Box onClick={onOpenC} bg='white' h='50px' width='50%' cursor={'pointer'}>
                 <Flex align="center" height="100%">
                   <Image src={calendario} />
                   <Text textAlign="center">Salida</Text>
@@ -88,10 +101,10 @@ const Header = () => {
               </Box>
             </Square>
             <Square gap='5px' mt='10px'>
-              <Box bg='white' h='50px' width='50%' >
+              <Box bg='white' h='50px' width='50%' onClick={onOpenP} cursor={'pointer'}>
                 <Flex align="center" height="100%"   justifyContent='space-between' >
                   <Text >Pasajeros</Text>
-                  <Image src={down} />
+                  <Image  src={down} />
                 </Flex>
               </Box>
               <Box bg='white' h='50px' width='50%'>
@@ -99,7 +112,7 @@ const Header = () => {
                 
               </Box>
             </Square>
-            <Button bg='#9b2577' variant='outline' h='50px' width='100%' mt='15px'  borderRadius={20} color='white' >
+            <Button onClick={ onClikBuscarVuelo} bg='#9b2577' variant='outline' h='50px' width='100%' mt='15px'  borderRadius={20} color='white' >
             <Image src={avion} boxSize="30px" mr={2}  />
                 Buscar vuelo
               </Button>
@@ -118,6 +131,8 @@ const Header = () => {
       </Flex>
       <ModalDestino isOpen={isOpen} onClose={onClose} />
       < ModalCalendario isOpen={isOpenC} onClose={onCloseC}/>
+      <ModalPasajero isOpen={isOpenP} onClose={onCloseP}/>
+      
     </Container>
   )
 }
