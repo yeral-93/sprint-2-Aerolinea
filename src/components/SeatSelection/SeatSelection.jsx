@@ -8,6 +8,7 @@ import {
   SeatsSelection,
 } from "./StyleSeatSelection";
 import { Flex, Button, Box, Text } from "@chakra-ui/react";
+import Reservation from "../FlightSearch/Reservation";
 
 const SeatSelection = () => {
   return (
@@ -44,9 +45,26 @@ const SeatSelection = () => {
           </Letter>
           <Seats />
         </div>
+        <section>
+          <h2>Vuelo de regreso</h2>
+          <h3>Miercoles 8 dic 2021</h3>
+          <h5>Culiacán a Cd. Mex (AICM)</h5>
+        </section>
+        <div>
+          <Letter>
+            <span>A</span>
+            <span>B</span>
+            <span>C</span>
+            <span>D</span>
+            <span>E</span>
+            <span>F</span>
+          </Letter>
+          <Seats />
+        </div>
       </BoxSeats>
       <div>
         <Box width="30%" display="flex" flexDirection="column">
+          <Reservation />
           <Box
             bg="#dedbdb"
             borderRadius="6px 6px 0 0"

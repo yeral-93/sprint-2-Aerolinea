@@ -6,7 +6,7 @@ import { DivSeats } from './StyleSeats';
 const Seats = () => {
 
     const seat =[];
-    const rows = 20;
+    const rows = 10;
     const columns =6;
 
     for(let index = 0; index < rows; index++){
