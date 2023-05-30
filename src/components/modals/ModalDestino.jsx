@@ -1,22 +1,71 @@
 
-import {Modal,Image, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, } from '@chakra-ui/react';
+import { Modal, Image, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Flex, Box } from '@chakra-ui/react';
 import search from '../../assets/search.svg'
 import Select from 'react-select'
-import Auto from '../Home/header/Auto';
+import { useContext, useState } from 'react';
+import { AerolineaContext } from '../../Routes/AppRouter';
 
-const ModalDestino = ({ isOpen, onClose }) => {
 
+const ModalDestino = ({ isOpen, onClose, origin }) => {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const { informacionDelViaje, setInformacionDelViaje, ciudades } = useContext(AerolineaContext);
+
+  const agregarOrigen = (ciudad, origen) => {
+    const ciudadDeOrigen = { ...informacionDelViaje };
+    ciudadDeOrigen[origen] = ciudad;
+    setInformacionDelViaje(ciudadDeOrigen);
+  };
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      background: state.isFocused ? '#9b2577' : 'white', // Color de fondo en estado de enfoque
+      color: state.isFocused ? 'white' : 'black', // Color de texto en estado de enfoque
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      boxShadow: state.isFocused ? '0 0 0 2px #9b2577' : 'none', // Sombra en estado de enfoque
+      '&:hover': {
+        borderColor: state.isFocused ? '#9b2577' : 'gray', // Color de borde en hover
+      },
+    }),
+  }
+
+  const handleChange = (selected) => {
+    setSelectedOption(selected);
+    agregarOrigen(selected, origin)
+  };
+  const convertOptions = (options) => {
+    return options.map((option) => ({
+      value: option.id,
+      label: option.ciudad.toUpperCase(),
+    }));
+  };
+ 
+  const convertedOptions = convertOptions(ciudades);
   return (
     <Modal isOpen={isOpen} onClose={onClose}   >
-    <ModalOverlay />
-    <ModalContent  width='310px' margin='170px 180px 0 40px' borderRadius={13} height={315} >
-      <ModalHeader>¿ A donde viajas ?</ModalHeader>
-      <ModalCloseButton />
-      <ModalBody >
-        <Auto/>
-      </ModalBody>
-    </ModalContent>
-  </Modal>
+      <ModalOverlay />
+      <ModalContent width='310px' margin='170px 180px 0 40px' borderRadius={13} height={315} >
+        <ModalHeader>¿ A donde viajas ?</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody >
+          <Flex width='100%'>
+            <Image src={search} />
+            <Box width='100%'>
+              <Select
+                options={convertedOptions}
+                placeholder="Seleccione una ciudad"
+                size="md"
+                variant="filled"
+                styles={customStyles} // Aplicar estilos personalizados
+                value={selectedOption}
+                onChange={handleChange}
+              />
+            </Box>
+          </Flex>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   )
 }
 

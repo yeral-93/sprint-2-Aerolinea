@@ -1,6 +1,6 @@
-import React, { useState,  } from 'react'
+import React, { useContext, useState, } from 'react'
 import {
-  Container, Box, Flex, Image, Square, Text, Button, Stack, 
+  Container, Box, Flex, Image, Square, Text, Button, Stack,
 } from '@chakra-ui/react'
 import Fondo from '../../../assets/fondo.jpeg'
 import avion from '../../../assets/plane.svg'
@@ -11,6 +11,7 @@ import ModalDestino from '../../modals/ModalDestino'
 import ModalCalendario from '../../modals/ModalCalendario'
 import ModalPasajero from '../../modals/ModalPasajero'
 import { useNavigate } from 'react-router-dom'
+import { AerolineaContext } from '../../../Routes/AppRouter'
 
 
 
@@ -19,18 +20,19 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenC, setIsOpenC] = useState(false);
   const [isOpenP, setIsOpenP] = useState(false);
- 
- 
-const navegar = useNavigate ()
-
+  const [origenODestino, setorigenODestino] = useState("");
+  const { informacionDelViaje, setInformacionDelViaje } = useContext(AerolineaContext);
+  const { Origen, Destino } = informacionDelViaje
+  const navegar = useNavigate()
 
   const onClose = () => {
     setIsOpen(false);
   };
 
-  const onOpen = ({target}) => {
-    const id = target.dataset.id;
-    console.log('ID:', id);
+  const onOpen = (event) => {
+    const id = event.target.getAttribute('data-id');
+
+    setorigenODestino(id);
     setIsOpen(true);
   };
   const onCloseC = () => {
@@ -48,8 +50,9 @@ const navegar = useNavigate ()
     setIsOpenP(true);
   };
   const onClikBuscarVuelo = () => {
-   navegar ('vuelo') 
+    navegar('vuelo')
   };
+ 
   return (
     <Container maxW='100%' padding="80px 170px 0px 170px">
       <Flex position="relative">
@@ -69,25 +72,25 @@ const navegar = useNavigate ()
             <Text fontSize='15px' >Descubre vuelos al mejor precio y perfecto para cualquier viaje.</Text>
             <Stack direction='row' justifyContent={'center'} align='center'
               bg='white' width='240px' padding='5px' borderRadius={5} >
-              <Button  variant='#9b2577' h='23px' width='120px'  >
+              <Button variant='#9b2577' h='23px' width='120px'  >
                 Viaje redondo
               </Button>
-              <Button bg='#9b2577' variant='outline' h='23px' width='120px' > 
+              <Button bg='#9b2577' variant='outline' h='23px' width='120px' >
                 Viaje sencillo
               </Button>
             </Stack>
             <Square gap='5px' mt='10px'>
-              <Box  onClick={onOpen}bg='white' h='90px' width='50%' cursor={'pointer'} data-id="origen">
-                <Flex align="center" height="100%">
-                  <Text  textAlign="center">Origen</Text>
-                </Flex>
+              <Box onClick={onOpen} bg='white' h='90px' width='50%' cursor={'pointer'} data-id="Origen">
+                <Box align="center" justifyContent='center' mt={3}>
+                  <Text textAlign="center" fontSize='25px'>{Origen? Origen.label:"Origén"}</Text>
+                  <Text fontSize='13px' >Origen</Text>
+                </Box>
               </Box>
-              <Box  onClick={onOpen} bg='white' h='90px' width='50%' cursor={'pointer'} data-id="destino">
-              <Flex align="center"  justifyContent='center'>
-              <Image src={menos} />  <Image src={menos} />  <Image src={menos} />
-              </Flex>
-                  <Text textAlign="center">Selecciona un destino</Text>
-                  
+              <Box onClick={onOpen} bg='white' h='90px' width='50%' cursor={'pointer'} data-id="Destino">
+                <Flex align="center" justifyContent='center' mt={3}>
+                <Text textAlign="center" fontSize='25px' display={'flex'}> { Destino? Destino.label:<> <Image src={menos} />  <Image src={menos} />  <Image src={menos} /></>}</Text>
+                </Flex>
+                <Text textAlign="center" fontSize='13px'>Selecciona un destino</Text>
               </Box>
             </Square>
             <Square gap='5px' mt='10px'>
@@ -97,32 +100,32 @@ const navegar = useNavigate ()
                   <Text textAlign="center">Salida</Text>
                 </Flex>
               </Box>
-              
-              <Box bg='white' h='50px' width='50%'> 
-              <Flex align="center" height="100%">
-              <Image src={calendario} />
+
+              <Box bg='white' h='50px' width='50%'>
+                <Flex align="center" height="100%">
+                  <Image src={calendario} />
                   <Text textAlign="center">Regreso</Text>
-                  </Flex>
+                </Flex>
               </Box>
             </Square>
             <Square gap='5px' mt='10px'>
               <Box bg='white' h='50px' width='50%' onClick={onOpenP} cursor={'pointer'}>
-                <Flex align="center" height="100%"   justifyContent='space-between' >
+                <Flex align="center" height="100%" justifyContent='space-between' >
                   <Text >Pasajeros</Text>
-                  <Image  src={down} />
+                  <Image src={down} />
                 </Flex>
               </Box>
               <Box bg='white' h='50px' width='50%'>
-              <Text >¿Tienes un codigo en promocion?</Text>
-                
+                <Text >¿Tienes un codigo en promocion?</Text>
+
               </Box>
             </Square>
 
-            <Button onClick={ onClikBuscarVuelo} bg='#9b2577' variant='outline' h='50px' width='100%' mt='15px'  borderRadius={20} color='white' >
-            <Image src={avion} boxSize="30px" mr={2}  />
-                Buscar vuelo 
+            <Button onClick={onClikBuscarVuelo} bg='#9b2577' variant='outline' h='50px' width='100%' mt='15px' borderRadius={20} color='white' >
+              <Image src={avion} boxSize="30px" mr={2} />
+              Buscar vuelo
 
-              </Button>
+            </Button>
           </Box>
         </Square>
         <Box h='500px' w='70%' marginLeft='400px'>
@@ -136,10 +139,10 @@ const navegar = useNavigate ()
 
         </Box>
       </Flex>
-      <ModalDestino isOpen={isOpen} onClose={onClose} />
-      < ModalCalendario isOpen={isOpenC} onClose={onCloseC}/>
-      <ModalPasajero isOpen={isOpenP} onClose={onCloseP}/>
-      
+      <ModalDestino isOpen={isOpen} onClose={onClose} origin={origenODestino} />
+      < ModalCalendario isOpen={isOpenC} onClose={onCloseC} />
+      <ModalPasajero isOpen={isOpenP} onClose={onCloseP} />
+
     </Container>
   )
 }
