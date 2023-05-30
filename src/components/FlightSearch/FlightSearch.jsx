@@ -2,18 +2,8 @@ import { Flex, Button, Box, Square, Text, Image } from "@chakra-ui/react";
 import maleta from "../../assets/briefcase.svg";
 import linea from "../../assets/line_with_dots (1).png";
 import Reservation from "./Reservation";
-import { useNavigate } from "react-router-dom";
 
 const FlightSearch = () => {
-  const navegar = useNavigate ()
-  const onClikCambiarVuelo = () => {
-    navegar ('/') 
-   };
-
-   const navigation = useNavigate ()
-  const onClikSelectSeat = () => {
-    navigation ('asiento') 
-   };
   const hoverStyles = {
     _hover: {
       backgroundColor: "#9b2577",
@@ -49,7 +39,6 @@ const FlightSearch = () => {
             borderColor="#9b2577"
             borderRadius={20}
             color="#9b2577"
-            onClick={ onClikCambiarVuelo}
           >
             {" "}
             Cambiar vuelo
@@ -235,7 +224,6 @@ const FlightSearch = () => {
           bg="#9b2577"
           borderRadius={20}
           color="white"
-          onClick={ onClikSelectSeat}
         >
           {" "}
           Selecionar asientos
