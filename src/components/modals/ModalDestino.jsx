@@ -1,9 +1,11 @@
 
-import {Image, Input, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, Stack, 
-     ModalCloseButton, InputLeftElement, InputGroup} from '@chakra-ui/react';
+import {Modal,Image, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, } from '@chakra-ui/react';
 import search from '../../assets/search.svg'
+import Select from 'react-select'
+import Auto from '../Home/header/Auto';
 
 const ModalDestino = ({ isOpen, onClose }) => {
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}   >
     <ModalOverlay />
@@ -11,31 +13,8 @@ const ModalDestino = ({ isOpen, onClose }) => {
       <ModalHeader>¿ A donde viajas ?</ModalHeader>
       <ModalCloseButton />
       <ModalBody >
-      <Stack spacing={0}>
-      <InputGroup>
-    <InputLeftElement pointerEvents='none'>
-    <Image src={search} />
-    </InputLeftElement>
-    <Input  placeholder='' />
-  </InputGroup>  
-  <Input
-    placeholder='Here is a sample placeholder'
-  />
-  <Input
-    placeholder='Here is a sample placeholder'
-  />
-  <Input
-    placeholder='Here is a sample placeholder'
-  />
-  <Input
-    placeholder='Here is a sample placeholder'
-  />
-  <Input
-    placeholder='Here is a sample placeholder'
-  />
-</Stack>
+        <Auto/>
       </ModalBody>
-
     </ModalContent>
   </Modal>
   )
