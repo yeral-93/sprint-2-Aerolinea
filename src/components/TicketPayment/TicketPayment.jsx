@@ -1,3 +1,4 @@
+import React from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { DivPayment, InformationCash, PersonData } from './StylePayment';
@@ -17,9 +18,18 @@ const validationSchema = Yup.object().shape({
   .required('El apellido es obligatorio'),
   birthdate: Yup.date()
   .required('La fecha de nacimiento es obligatoria'),
-  gender: Yup.date()
-  .required('El sexo es requerido'),
+  gender: Yup.string()
+});
 
+const validationCash = Yup.object().shape({
+  cardNumber: Yup.number()
+  .min(10,'El nombre debe de tener minimo 10 caracteres')
+  .max(10,'El nombre debe de tener maximo 10 caracteres')
+  .required('El numero de tarjeta es obligatorio'),
+  expirationDate: Yup.date()
+  .required('La fecha de expiración es obligatoria'),
+  cvv: Yup.number()
+  .required('El CVV es obligatorio'),
 });
 
 const initialValues = {
@@ -30,8 +40,16 @@ const initialValues = {
 
 }
 
+const initialCash = {
+  cardNumber:'',
+  expirationDate:'',
+  cvv:'',
+}
+
 const TicketPayment = () => {
   const navigate = useNavigate()
+  const onClikPagarViaje = () => {
+    navigate ('informacion')}
 
   const formik = useFormik({
     initialValues,
@@ -39,7 +57,17 @@ const TicketPayment = () => {
     onSubmit:(values, {setSubmitting}) => {
       console.log('valores',values);
       setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
+        setSubmitting(false);
+      }, 400)
+    },
+  });
+
+  const formikCash = useFormik({
+    initialCash,
+    validationCash,
+    onSubmit:(values, {setSubmitting}) => {
+      console.log('valores',values);
+      setTimeout(() => {
         setSubmitting(false);
       }, 400)
     },
@@ -61,27 +89,28 @@ const TicketPayment = () => {
         <h3>Adulto 1 </h3>
         <h5>El nombre del pasajero debe de coincidir con los documentos de viaje.</h5>
         <form onSubmit={formik.handleSubmit}>
+          
           <label htmlFor="">Nombre </label>
         <input type="text" name='name' placeholder='Nombre del usuario' {...formik.getFieldProps('name')}/>
         {formik.touched.name && formik.errors.name && <div>{formik.errors.name}</div>}
+        
         <label htmlFor="">Apellido </label>
-        
-        <input type="text" name='lastname' placeholder='Apellido del usuario' {...formik.getFieldProps('lastname')}/>
+         <input type="text" name='lastname' placeholder='Apellido del usuario' {...formik.getFieldProps('lastname')}/>
         {formik.touched.lastname && formik.errors.lastname && <div>{formik.errors.lastname}</div>}
-        <label htmlFor="">Fecha de nacimiento </label>
         
+        <label htmlFor="">Fecha de nacimiento </label>
         <input type="date" name='birthdate' {...formik.getFieldProps('birthdate')}/>
         {formik.touched.birthdate && formik.errors.birthdate && <div>{formik.errors.birthdate}</div>}
         
         <fieldset>
         <legend>Género</legend>
-        <input type="radio" name='gender' {...formik.getFieldProps('gender')}/>
+        <input type="radio" name='gender' value='femenino' {...formik.getFieldProps('gender')}/>
         {formik.touched.gender && formik.errors.gender && <div>{formik.errors.gender}</div>}
         <label htmlFor="">Femenino</label>
-        <input type="radio" name='gender' {...formik.getFieldProps('gender')}/>
+        <input type="radio" name='gender' value='masculino'{...formik.getFieldProps('gender')}/>
         {formik.touched.gender && formik.errors.gender && <div>{formik.errors.gender}</div>}
         <label htmlFor="">Masculino</label>
-        <input type="radio" name='gender' {...formik.getFieldProps('gender')}/>
+        <input type="radio" name='gender' value='otro' {...formik.getFieldProps('gender')}/>
         {formik.touched.gender && formik.errors.gender && <div>{formik.errors.gender}</div>}
         <label htmlFor="">Otro</label>
         </fieldset>
@@ -103,16 +132,17 @@ const TicketPayment = () => {
           </section>
         <div>
           <h4>Ingresa los datos de tu tarjeta</h4>
-          <form action="">
-            <input type="number" name='numberCard' placeholder='Número de tarjeta' />
+          <form onSubmit={formikCash.handleSubmit}>
+            <input type="number" name='cardNumber' placeholder='Número de tarjeta' {...formikCash.getFieldProps('cardNumber')}/>
+            {formikCash.touched.cardNumber && formikCash.errors.cardNumber && <div>{formikCash.errors.cardNumber}</div>}
             <span>
             <label htmlFor="">Fecha de expiración</label>
-            <input type="date" />
+            <input type="date" name='expirationDate' {...formikCash.getFieldProps('expirationDate')}/>
+            {formikCash.touched.expirationDate && formikCash.errors.expirationDate && <div>{formikCash.errors.expirationDate}</div>}
             </span>
-            <input type="text" placeholder='CVV' />
-            <button type='button' onClick={() => {
-              navigate(`informacion`);
-            }}>Pagar mi viaje</button>
+            <input type="number" name='cvv' placeholder='CVV' {...formikCash.getFieldProps('cvv')}/>
+            {formikCash.touched.cvv && formikCash.errors.cvv && <div>{formikCash.errors.cvv}</div>}
+            <button type='submit' disabled={formikCash.isSubmitting} onClick={ onClikPagarViaje}>Pagar mi viaje</button>
           </form>
         </div>
         </InformationCash>
