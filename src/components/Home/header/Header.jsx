@@ -19,13 +19,18 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenC, setIsOpenC] = useState(false);
   const [isOpenP, setIsOpenP] = useState(false);
+ 
+ 
 const navegar = useNavigate ()
+
 
   const onClose = () => {
     setIsOpen(false);
   };
 
-  const onOpen = () => {
+  const onOpen = ({target}) => {
+    const id = target.dataset.id;
+    console.log('ID:', id);
     setIsOpen(true);
   };
   const onCloseC = () => {
@@ -72,12 +77,12 @@ const navegar = useNavigate ()
               </Button>
             </Stack>
             <Square gap='5px' mt='10px'>
-              <Box  onClick={onOpen}bg='white' h='90px' width='50%' cursor={'pointer'}>
+              <Box  onClick={onOpen}bg='white' h='90px' width='50%' cursor={'pointer'} data-id="origen">
                 <Flex align="center" height="100%">
                   <Text  textAlign="center">Origen</Text>
                 </Flex>
               </Box>
-              <Box  onClick={onOpen} bg='white' h='90px' width='50%' cursor={'pointer'}>
+              <Box  onClick={onOpen} bg='white' h='90px' width='50%' cursor={'pointer'} data-id="destino">
               <Flex align="center"  justifyContent='center'>
               <Image src={menos} />  <Image src={menos} />  <Image src={menos} />
               </Flex>
