@@ -6,6 +6,7 @@ import {
   Heading,
   Text,
   Avatar,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { SectionCards, SectionDiv } from "./StyleFooter";
 
@@ -43,6 +44,8 @@ export const Footer = () => {
     },
   ];
 
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
   return (
     <SectionDiv>
       <Heading size="lg" margin='0px 0px 0px 28px'> Servicios Disponibles</Heading>
@@ -51,8 +54,8 @@ export const Footer = () => {
           <Card
           borderRadius="16px"
             key={`${item.title}-${index}`}
-            width='18%'
-            height='270px'
+            width={isMobile?'90%':'18%'}
+            height={isMobile?'':'270px'}
             alignItems="center"
             boxshadow="0 0.13rem 0.5rem 0 rgba(0,0,0,.06), 0 0.06rem 0.13rem 0 rgba(0,0,0,.08)"
           >

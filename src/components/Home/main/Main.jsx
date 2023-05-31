@@ -6,10 +6,12 @@ import {
   Text,
   CardFooter,
   Image,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { MainDiv } from "./StyleMain";
 
 const Main = () => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
   return (
     <MainDiv>
       <Heading size="lg" margin='0px 0px 30px 0px'>
@@ -18,12 +20,12 @@ const Main = () => {
       <Card
       borderRadius="20px"
         display="flex"
-        flexDirection="revert"
+        flexDirection={isMobile?"column":"revert"}
         justifyContent="space-between"
         boxshadow="0 0.13rem 0.5rem 0 rgba(0,0,0,.06), 0 0.06rem 0.13rem 0 rgba(0,0,0,.08)"
       >
         <section>
-          <CardBody display="flex">
+          <CardBody display="flex" >
             <Text>
               Tarjeta de crédito, tarjeta de debito y pago electrónico.{" "}
             </Text>
