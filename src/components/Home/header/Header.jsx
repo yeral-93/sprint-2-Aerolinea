@@ -1,6 +1,6 @@
 import React, { useContext, useState, } from 'react'
 import {
-  Container, Box, Flex, Image, Square, Text, Button, Stack,
+  Container, Box, Flex, Image, Square, Text, Button, Stack, useBreakpointValue,
 } from '@chakra-ui/react'
 import Fondo from '../../../assets/fondo.jpeg'
 import avion from '../../../assets/plane.svg'
@@ -52,20 +52,22 @@ const Header = () => {
   const onClikBuscarVuelo = () => {
     navegar('vuelo')
   };
+
+  const isMobile = useBreakpointValue({ base: true, md: false });
  
   return (
-    <Container maxW='100%' padding="80px 170px 0px 170px">
-      <Flex position="relative">
+    <Container maxW='100%' padding={isMobile ? "0px":"80px 170px 0px 170px"} display={isMobile?'flex':''} flexDirection={isMobile?'column':''}>
+      <Flex  direction={isMobile ? "column" : "row"} position={isMobile ? '':"relative"} gap={isMobile?'15px':''}>
 
         <Square
           bg='#eae6e6'
           borderRadius={20}
-          padding='20px'
-          size='55%'
+          padding={isMobile ? "10px":"20px"}
+          size={isMobile ?'98%':'55%'}
           h='450px'
           mt='25px'
-          zIndex="1"
-          position="absolute"
+          zIndex={isMobile?'':"1"}
+          position={isMobile?'':"absolute"}
         >
           <Box mt='-10px'>
             <Text fontSize='30px' as='b' >Busca un nuevo destino y  comienza la aventura.</Text>
@@ -128,10 +130,10 @@ const Header = () => {
             </Button>
           </Box>
         </Square>
-        <Box h='500px' w='70%' marginLeft='400px'>
+        <Box h='500px' w={isMobile?'':'70%'} marginLeft={isMobile?'':'400px'} display={isMobile?'flex':''}flexDirection={isMobile?'column':''}>
           <Image
             boxSize='100%'
-            objectFit='cover'
+            objectFit={'cover'}
             src={Fondo}
             alt='fondo avion'
             borderRadius={20}
