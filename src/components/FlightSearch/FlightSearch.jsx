@@ -4,6 +4,7 @@ import linea from "../../assets/line_with_dots (1).png";
 import Reservation from "./Reservation";
 import { useContext, useEffect, useState } from "react";
 import { AerolineaContext } from "../../Routes/AppRouter";
+import { useNavigate } from "react-router-dom";
 
 
 const FlightSearch = () => {
@@ -13,6 +14,7 @@ const FlightSearch = () => {
   const [vuelosEncontrados, setVuelosEncontrados] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [vueloseleccionado, setVueloseleccionado] = useState(vuelosEncontrados[0]);
+  const navegar = useNavigate()
   const handleItemClick = (id) => {
     setSelectedItem(id);
   };
@@ -38,6 +40,15 @@ console.log(vueloseleccionado);
     buscarVuelos(vuelos, Origen, Destino)
 
   }, [Destino, Origen, vuelos]);
+
+  const onClikCambiarVuelo = () => {
+    navegar('/')
+  };
+  
+  const onClikEscogerSillas = () => {
+    navegar('/asiento')
+  }
+
   return (
     <div
       style={{
@@ -61,6 +72,7 @@ console.log(vueloseleccionado);
             borderColor="#9b2577"
             borderRadius={20}
             color="#9b2577"
+            onClick={onClikCambiarVuelo}
           >
             {" "}
             Cambiar vuelo
@@ -183,6 +195,7 @@ console.log(vueloseleccionado);
           borderRadius={20}
           color="white"
           vuelo={vueloseleccionado}
+          onClick={onClikEscogerSillas}
         >
           {" "}
           Selecionar asientos
