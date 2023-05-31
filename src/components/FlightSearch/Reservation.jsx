@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Flex, Box, Text } from "@chakra-ui/react";
+import { AerolineaContext } from "../../Routes/AppRouter";
 
-const Reservation = () => {
+const Reservation = (vuelo) => {
+  console.log('====================================');
+  console.log({vuelo});
+  console.log('====================================');
+  const { informacionDelViaje } = useContext(AerolineaContext);
+  const { Origen, Destino, salida, regreso, adulto, nino, bebe } = informacionDelViaje
   return (
     <div>
       <Box width="30%" display="flex" flexDirection="column">
@@ -24,19 +30,27 @@ const Reservation = () => {
         >
           <Flex justifyContent={"space-between"} fontWeight={"bold"} mb="8px">
             <Text> Pasajeros</Text>
-            <Text> 1 adulto</Text>
+            <Text>{adulto > 0 || bebe > 0 || nino > 0 ? (
+                      <>
+                        {adulto > 0 && `${adulto} Adulto `}
+                        {nino > 0 && `${nino} Niño `}
+                        {bebe > 0 && `${bebe} Bebé `}
+                      </>
+                    ) : (
+                      "Pasajeros"
+                    )}</Text>
           </Flex>
           <Text mb="-8px"> Vuelo de salida</Text>
           <Flex fontWeight={"bold"} fontSize="25px" gap={4}>
-            <Text>MEX</Text>
+            <Text>{Origen?.label}</Text>
             <Text> ___</Text>
-            <Text>CUL</Text>
+            <Text>{Destino?.label}</Text>
           </Flex>
           <Flex gap={12}>
-            <Text> 05:50 PM</Text>
-            <Text> 06:47 PM</Text>
+            <Text> {vuelo?.horaSalida}</Text>
+            <Text>{vuelo?.horaLlegada}</Text>
           </Flex>
-          <Text fontWeight={"bold"}>Martes, 30 noviembre, 2021</Text>
+          <Text fontWeight={"bold"}>{salida}</Text>
         </Box>
         <Box
           bg="#dedbdb"
@@ -46,7 +60,7 @@ const Reservation = () => {
           padding="10px"
           marginTop="15px"
         >
-          <Text fontWeight={"bold"}>Costo de vuelo</Text>
+          <Text fontWeight={"bold"}>{vuelo?.precio}</Text>
         </Box>
         <Box
           bg={"white"}
@@ -61,15 +75,15 @@ const Reservation = () => {
           </Flex>
           <Flex justifyContent={"space-between"} mb="1">
             <Text> Descuento promocional</Text>
-            <Text>$1.034 MXN</Text>
+            <Text>$ 0</Text>
           </Flex>
           <Flex justifyContent={"space-between"} mb="1">
             <Text> Tarifa base con descuento</Text>
-            <Text> $471 MXN</Text>
+            <Text> $ 0</Text>
           </Flex>
           <Flex justifyContent={"space-between"} mb="1">
             <Text> IVA Tarifa</Text>
-            <Text>$75 MXN</Text>
+            <Text>$ 0</Text>
           </Flex>
           <Flex justifyContent={"space-between"} fontWeight={"bold"}>
             <Text>Total</Text>
