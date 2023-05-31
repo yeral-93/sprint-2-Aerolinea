@@ -21,9 +21,20 @@ const Header = () => {
   const [isOpenC, setIsOpenC] = useState(false);
   const [isOpenP, setIsOpenP] = useState(false);
   const [origenODestino, setorigenODestino] = useState("");
-  const { informacionDelViaje, setInformacionDelViaje } = useContext(AerolineaContext);
-  const { Origen, Destino } = informacionDelViaje
+  const { informacionDelViaje } = useContext(AerolineaContext);
+  const { Origen, Destino, salida, regreso, adulto, nino, bebe } = informacionDelViaje
   const navegar = useNavigate()
+  const [viajeSeleccionado, setViajeSeleccionado] = useState('redondo');
+
+  const handleClickRedondo = () => {
+    setViajeSeleccionado('redondo');
+  };
+
+  const handleClickSencillo = () => {
+    setViajeSeleccionado('sencillo');
+  };
+
+
 
   const onClose = () => {
     setIsOpen(false);
@@ -31,7 +42,6 @@ const Header = () => {
 
   const onOpen = (event) => {
     const id = event.target.getAttribute('data-id');
-
     setorigenODestino(id);
     setIsOpen(true);
   };
@@ -53,8 +63,12 @@ const Header = () => {
     navegar('vuelo')
   };
 
+
+
+
   const isMobile = useBreakpointValue({ base: true, md: false });
  
+
   return (
     <Container maxW='100%' padding={isMobile ? "0px":"80px 170px 0px 170px"} display={isMobile?'flex':''} flexDirection={isMobile?'column':''}>
       <Flex  direction={isMobile ? "column" : "row"} position={isMobile ? '':"relative"} gap={isMobile?'15px':''}>
@@ -72,25 +86,37 @@ const Header = () => {
           <Box mt='-10px'>
             <Text fontSize='30px' as='b' >Busca un nuevo destino y  comienza la aventura.</Text>
             <Text fontSize='15px' >Descubre vuelos al mejor precio y perfecto para cualquier viaje.</Text>
-            <Stack direction='row' justifyContent={'center'} align='center'
-              bg='white' width='240px' padding='5px' borderRadius={5} >
-              <Button variant='#9b2577' h='23px' width='120px'  >
+            <Stack direction='row' justifyContent='center' align='center' bg='white' width='240px' padding='5px' borderRadius={5}>
+              <Button
+                variant={viajeSeleccionado === 'redondo' ? '#9b2577' : 'outline'}
+                bg={viajeSeleccionado === 'redondo' ? '#9b2577' : ''}
+                h='23px'
+                width='120px'
+                onClick={handleClickRedondo}
+              >
                 Viaje redondo
               </Button>
-              <Button bg='#9b2577' variant='outline' h='23px' width='120px' >
+              <Button
+                variant={viajeSeleccionado === 'sencillo' ? '#9b2577' : 'outline'}
+                bg={viajeSeleccionado === 'sencillo' ? '#9b2577' : ''}
+                h='23px'
+                width='120px'
+                onClick={handleClickSencillo}
+              >
                 Viaje sencillo
               </Button>
             </Stack>
+
             <Square gap='5px' mt='10px'>
               <Box onClick={onOpen} bg='white' h='90px' width='50%' cursor={'pointer'} data-id="Origen">
                 <Box align="center" justifyContent='center' mt={3}>
-                  <Text textAlign="center" fontSize='25px'>{Origen? Origen.label:"Origén"}</Text>
+                  <Text textAlign="center" fontSize='25px'>{Origen ? Origen.label : "Origén"}</Text>
                   <Text fontSize='13px' >Origen</Text>
                 </Box>
               </Box>
               <Box onClick={onOpen} bg='white' h='90px' width='50%' cursor={'pointer'} data-id="Destino">
                 <Flex align="center" justifyContent='center' mt={3}>
-                <Text textAlign="center" fontSize='25px' display={'flex'}> { Destino? Destino.label:<> <Image src={menos} />  <Image src={menos} />  <Image src={menos} /></>}</Text>
+                  <Text textAlign="center" fontSize='25px' display={'flex'}> {Destino ? Destino.label : <> <Image src={menos} />  <Image src={menos} />  <Image src={menos} /></>}</Text>
                 </Flex>
                 <Text textAlign="center" fontSize='13px'>Selecciona un destino</Text>
               </Box>
@@ -99,21 +125,31 @@ const Header = () => {
               <Box onClick={onOpenC} bg='white' h='50px' width='50%' cursor={'pointer'}>
                 <Flex align="center" height="100%">
                   <Image src={calendario} />
-                  <Text textAlign="center">Salida</Text>
+                  <Text textAlign="center">{salida ? salida : "Salida"} </Text>
                 </Flex>
               </Box>
 
               <Box bg='white' h='50px' width='50%'>
                 <Flex align="center" height="100%">
                   <Image src={calendario} />
-                  <Text textAlign="center">Regreso</Text>
+                  <Text textAlign="center">{regreso ? regreso : "Regreso"}</Text>
                 </Flex>
               </Box>
             </Square>
             <Square gap='5px' mt='10px'>
               <Box bg='white' h='50px' width='50%' onClick={onOpenP} cursor={'pointer'}>
                 <Flex align="center" height="100%" justifyContent='space-between' >
-                  <Text >Pasajeros</Text>
+                  <Text >
+                    {adulto > 0 || bebe > 0 || nino > 0 ? (
+                      <>
+                        {adulto > 0 && `${adulto} Adulto `}
+                        {nino > 0 && `${nino} Niño `}
+                        {bebe > 0 && `${bebe} Bebé `}
+                      </>
+                    ) : (
+                      "Pasajeros"
+                    )}
+                  </Text>
                   <Image src={down} />
                 </Flex>
               </Box>
@@ -142,7 +178,7 @@ const Header = () => {
         </Box>
       </Flex>
       <ModalDestino isOpen={isOpen} onClose={onClose} origin={origenODestino} />
-      < ModalCalendario isOpen={isOpenC} onClose={onCloseC} />
+      < ModalCalendario isOpen={isOpenC} onClose={onCloseC} tipoViaje={viajeSeleccionado}/>
       <ModalPasajero isOpen={isOpenP} onClose={onCloseP} />
 
     </Container>
