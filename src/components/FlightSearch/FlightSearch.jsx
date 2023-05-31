@@ -1,4 +1,12 @@
-import { Flex, Button, Box, Square, Text, Image } from "@chakra-ui/react";
+import {
+  Flex,
+  Button,
+  Box,
+  Square,
+  Text,
+  Image,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import maleta from "../../assets/briefcase.svg";
 import linea from "../../assets/line_with_dots (1).png";
 import Reservation from "./Reservation";
@@ -15,25 +23,36 @@ const FlightSearch = () => {
       },
     },
   };
-
+  const isMobile = useBreakpointValue({ base: true, md: false });
   return (
     <div
       style={{
         backgroundColor: "#eae6e6",
-        height: "100vh",
+        height: isMobile ? "" : "100vh",
         display: "flex",
-        gap: "50px",
-        padding: "50px 100px",
+        flexDirection: isMobile ? "column" : "",
+        gap: isMobile ? "20px" : "50px",
+        padding: isMobile ? "10px 20px" : "50px 100px",
       }}
     >
-      <Box width="60%" marginTop="32px">
-        <Square display={"flex"} justifyContent={"space-between"}>
-          <Text fontWeight={"bold"} fontSize={"35px"}>
+      <Box
+        width={isMobile ? "100%" : "65%"}
+        marginTop={isMobile ? "30px" : "32px"}
+        display={isMobile ? "flex" : ""}
+        flexDirection={isMobile ? "column" : ""}
+      >
+        <Square
+          display={"flex"}
+          flexDirection={isMobile ? "column" : ""}
+          justifyContent={isMobile ? "" : "space-between"}
+        >
+          <Text fontWeight={"bold"} fontSize="35px">
             {" "}
             Vuelo de salida
           </Text>
           <Button
             variant="outline"
+            margin={isMobile ? "20px" : ""}
             h="40px"
             width="150px"
             borderColor="#9b2577"
@@ -55,14 +74,20 @@ const FlightSearch = () => {
         </Text>
         <Square
           bg="white"
-          width="100%"
+          // width={isMobile ? "" :"100%"}
           borderRadius={"10px"}
           display={"flex"}
           alignItems={"center"}
           gap={"10px"}
+          flexDirection={isMobile ? "column" : ""}
+          marginBottom="20px"
         >
-          <Box width={"40%"} marginLeft={3}>
-            <Flex justifyContent={"space-between"}>
+          <Box
+            width={isMobile ? "100%" : "40%"}
+            justifyContent={isMobile ? "center" : ""}
+            display={isMobile ? "flex" : ""}
+          >
+            <Flex justifyContent="space-between">
               <Box marginTop={2.5}>
                 <Text fontWeight={"bold"}>05:50 PM</Text>
               </Box>
@@ -76,7 +101,7 @@ const FlightSearch = () => {
               </Box>
             </Flex>
           </Box>
-          <Box width={"70%"} margin={3}>
+          <Box width={isMobile ? "100%" : "60%"} margin={3}>
             <Flex gap={"10px"}>
               <Box
                 sx={hoverStyles}
@@ -134,16 +159,20 @@ const FlightSearch = () => {
         </Square>
         <Square
           bg="white"
-          width="100%"
-          height="100px"
+          // width={isMobile ? "" :"100%"}
           borderRadius={"10px"}
-          marginTop={3}
           display={"flex"}
           alignItems={"center"}
           gap={"10px"}
+          flexDirection={isMobile ? "column" : ""}
+          marginBottom={isMobile ? "" : "20px"}
         >
-          <Box width={"40%"} marginLeft={3}>
-            <Flex justifyContent={"space-between"}>
+          <Box
+            width={isMobile ? "100%" : "40%"}
+            justifyContent={isMobile ? "center" : ""}
+            display={isMobile ? "flex" : ""}
+          >
+            <Flex justifyContent="space-between">
               <Box marginTop={2.5}>
                 <Text fontWeight={"bold"}>05:50 PM</Text>
               </Box>
@@ -157,7 +186,7 @@ const FlightSearch = () => {
               </Box>
             </Flex>
           </Box>
-          <Box width={"70%"} margin={3}>
+          <Box width={isMobile ? "100%" : "60%"} margin={3}>
             <Flex gap={"10px"}>
               <Box
                 sx={hoverStyles}
