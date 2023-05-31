@@ -1,9 +1,9 @@
 import React from "react";
-import LivingIcon from "@mui/icons-material/Living";
 import Seats from "./Seats";
 import {
   BoxSeats,
   ColorSeat,
+  Exit,
   Letter,
   SeatsSelection,
 } from "./StyleSeatSelection";
@@ -21,28 +21,21 @@ const SeatSelection = () => {
         </section>
         <ColorSeat>
           <h6>Selecciona tus asientos</h6>
-          <div>
-            <LivingIcon sx={{ color: "#9b2577" }} />
-            <span>Seleccionado</span>
-          </div>
-          <div>
-            <LivingIcon sx={{ color: "#747374" }} />
-            <span>Ocupado</span>
-          </div>
-          <div>
-            <LivingIcon />
-            <span>Disponible</span>
-          </div>
         </ColorSeat>
         <div>
           <Letter>
-            <span>A</span>
-            <span>B</span>
-            <span>C</span>
-            <span>D</span>
-            <span>E</span>
-            <span>F</span>
+            <div>
+              <span>A</span>
+              <span>B</span>
+              <span>C</span>
+            </div>
+            <div>
+              <span>D</span>
+              <span>E</span>
+              <span>F</span>
+            </div>
           </Letter>
+          <Exit>Salida rápida</Exit>
           <Seats />
         </div>
         <section>
@@ -52,13 +45,18 @@ const SeatSelection = () => {
         </section>
         <div>
           <Letter>
-            <span>A</span>
-            <span>B</span>
-            <span>C</span>
-            <span>D</span>
-            <span>E</span>
-            <span>F</span>
+            <div>
+              <span>A</span>
+              <span>B</span>
+              <span>C</span>
+            </div>
+            <div>
+              <span>D</span>
+              <span>E</span>
+              <span>F</span>
+            </div>
           </Letter>
+          <Exit>Salida rápida</Exit>
           <Seats />
         </div>
       </BoxSeats>
